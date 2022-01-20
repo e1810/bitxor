@@ -4,16 +4,16 @@ module REG (
 	input wire in0,
 	input wire in_use,
 	input wire out_use,
-	output wire out0,
-	output wire d,
-	output wire q
+	output wire out0
 	);
 
-	assign d = (in0 & in_use) ^ q;
+	wire delayed_clk;
+	assign #1 delayed_clk = clk;
 
-	//wire d;
-	//wire q;
-	DFF bitreg(.clk(clk), .reset(reset), .d(d), .q(q));
+	wire d, q;
+	assign d = (in0 & in_use) ^ q;
+	DFF bitreg(.clk(delayed_clk), .reset(reset), .d(d), .q(q));
+
 	assign out0 = q & out_use;
 endmodule
 
