@@ -1,4 +1,4 @@
-module BITRAMTEST;
+module DECODERTEST;
 
 reg[2:0] idx;
 wire[7:0] mask;
@@ -6,8 +6,8 @@ wire[7:0] mask;
 OUTDECODER8 dec(idx, mask);
 
 initial begin
-	$dumpfile("bitram_test.vcd");
-	$dumpvars(1, BITRAMTEST);
+	$dumpfile("decoder_test.vcd");
+	$dumpvars(1, DECODERTEST);
 		idx = 3'b000;
 	#10	idx = 3'b001;
 	#10	idx = 3'b010;

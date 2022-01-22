@@ -7,3 +7,9 @@
 
 波形確認
 `twinwave + and_test.vcd`
+
+
+8レジスタのBIT
+000 更新:一点XOR
+001 取得:[0, n)開区間総XOR
+reg0~reg6まで使用可能、reg7はゴミ箱です。

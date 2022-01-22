@@ -1,12 +1,10 @@
 module REGTEST;
 
 reg clk;
-wire out0;
-
+reg[1:0] inst;		// 00=xor idx val, 01=setr idx
+reg[2:0] idx = 3'b000;
 reg in0 = 0;
-reg reset = 1'b1;
-reg in_use = 1'b0;
-reg out_use = 1'b1;
+wire rangexor;
 
 parameter STEP = 10;
 always begin
@@ -15,21 +13,26 @@ always begin
 end
 
 
-REG xreg(clk, reset, in0, in_use, out_use, out0);
+wire[7:0] dat;
+wire[7:0] out_use;
+wire[7:0] bd;
+REG1B8SZ xreg(clk, inst, idx, in0, out0);
 
 initial begin
 	$dumpfile("reg_test.vcd");
 	$dumpvars(1, REGTEST);
-	#STEP	reset = 1'b0;
-	#STEP	in_use = 1'b0; in0 = 1'b0;
-	#STEP	in_use = 1'b0; in0 = 1'b1;
-	#STEP	in_use = 1'b1; in0 = 1'b1;
-	#STEP	in_use = 1'b0; in0 = 1'b0;
-	#STEP	in_use = 1'b1; in0 = 1'b0;
-	#STEP	in_use = 1'b1; in0 = 1'b1;
-	#STEP
-	#STEP
-	#STEP	out_use = 1'b0;
+	#STEP	inst = 2'b00; in0 = 1'b1; idx = 3'b000;
+	#STEP	inst = 2'b00; in0 = 1'b0; idx = 3'b000;
+	#STEP	inst = 2'b00; in0 = 1'b1; idx = 3'b100;
+	#STEP	inst = 2'b01; in0 = 1'b0; idx = 3'b111;
+	#STEP	inst = 2'b01; in0 = 1'b0; idx = 3'b011;
+	#STEP	inst = 2'b01; in0 = 1'b1; idx = 3'b100;
+
+	#STEP	inst = 2'b00; in0 = 1'b1; idx = 3'b101;
+	#STEP	inst = 2'b00; in0 = 1'b1; idx = 3'b110;
+	#STEP	inst = 2'b00; in0 = 1'b1; idx = 3'b000;
+	#STEP	inst = 2'b01; in0 = 1'b0; idx = 3'b011;
+	#STEP	inst = 2'b01; in0 = 1'b1; idx = 3'b111;
 	#STEP	$finish;	
 end
 

@@ -9,5 +9,7 @@ module DFF (
 		if(reset == 1'b1) q <= 0;
 		else q <= d;
 	end
+
+	initial q <= 0;
 endmodule
 
