@@ -3,7 +3,7 @@ module BITRAMTEST;
 reg[2:0] idx;
 wire[7:0] mask;
 
-DECODER8 dec(idx, mask);
+OUTDECODER8 dec(idx, mask);
 
 initial begin
 	$dumpfile("bitram_test.vcd");
