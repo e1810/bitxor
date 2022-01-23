@@ -1,6 +1,6 @@
 module REGTEST;
 
-reg clk;
+reg clk, reset;
 reg[1:0] inst;		// 00=xor idx val, 01=setr idx
 reg[2:0] idx = 3'b000;
 reg in0 = 0;
@@ -16,11 +16,13 @@ end
 wire[7:0] dat;
 wire[7:0] out_use;
 wire[7:0] bd;
-REG1B8SZ xreg(clk, inst, idx, in0, out0);
+REG1B8SZ xreg(clk, reset, inst, idx, in0, out0);
 
 initial begin
 	$dumpfile("reg_test.vcd");
 	$dumpvars(1, REGTEST);
+	#STEP	reset = 1'b1;
+	#STEP	reset = 1'b0;
 	#STEP	inst = 2'b00; in0 = 1'b1; idx = 3'b000;
 	#STEP	inst = 2'b00; in0 = 1'b0; idx = 3'b000;
 	#STEP	inst = 2'b00; in0 = 1'b1; idx = 3'b100;
