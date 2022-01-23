@@ -16,7 +16,8 @@ end
 wire[7:0] dat;
 wire[7:0] out_use;
 wire[7:0] bd;
-REG1B8SZ xreg(clk, reset, inst, idx, in0, out0);
+wire delayed_clk;
+REG1B8SZ xreg(clk, reset, inst, idx, in0, out0, delayed_clk);
 
 initial begin
 	$dumpfile("reg_test.vcd");
@@ -26,15 +27,15 @@ initial begin
 	#STEP	inst = 2'b00; in0 = 1'b1; idx = 3'b000;
 	#STEP	inst = 2'b00; in0 = 1'b0; idx = 3'b000;
 	#STEP	inst = 2'b00; in0 = 1'b1; idx = 3'b100;
-	#STEP	inst = 2'b01; in0 = 1'b0; idx = 3'b111;
-	#STEP	inst = 2'b01; in0 = 1'b0; idx = 3'b011;
-	#STEP	inst = 2'b01; in0 = 1'b1; idx = 3'b100;
+	#STEP	inst = 2'b10; in0 = 1'b0; idx = 3'b111;
+	#STEP	inst = 2'b10; in0 = 1'b0; idx = 3'b011;
+	#STEP	inst = 2'b10; in0 = 1'b1; idx = 3'b100;
 
 	#STEP	inst = 2'b00; in0 = 1'b1; idx = 3'b101;
 	#STEP	inst = 2'b00; in0 = 1'b1; idx = 3'b110;
 	#STEP	inst = 2'b00; in0 = 1'b1; idx = 3'b000;
-	#STEP	inst = 2'b01; in0 = 1'b0; idx = 3'b011;
-	#STEP	inst = 2'b01; in0 = 1'b1; idx = 3'b111;
+	#STEP	inst = 2'b10; in0 = 1'b0; idx = 3'b011;
+	#STEP	inst = 2'b10; in0 = 1'b1; idx = 3'b111;
 	#STEP	$finish;	
 end
 

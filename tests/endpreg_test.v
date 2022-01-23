@@ -10,9 +10,7 @@ always begin
 	clk = 0; #(STEP/2);
 end
 
-wire qL, qR, delayed_clk;
-assign #1 delayed_clk = clk;
-ENDPREG endpreg(delayed_clk, reset, inst, ztonxor, qL, qR, ltorxor);
+ENDPREG endpreg(clk, reset, inst, ztonxor, ltorxor);
 
 initial begin
 	$dumpfile("endpreg_test.vcd");

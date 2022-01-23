@@ -1,5 +1,5 @@
 // XOR 00
-// ??? 01
+// OUT 01
 // SETL 10
 // SETR 11
 
@@ -8,6 +8,13 @@ module ISXOR (
 	output wire judge
 	);
 	assign judge = (!inst[0] & !inst[1]);
+endmodule
+
+module ISOUT (
+	input wire[1:0] inst,
+	output wire judge
+	);
+	assign judge = (inst[0] & !inst[1]);
 endmodule
 
 module ISSETL (
